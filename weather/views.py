@@ -31,19 +31,45 @@ class WeatherWismar(object):
     def apiCall4hwi(self):
         self.json_data = requests.get(self.uri).json()
         self.json_text = json.dumps(self.json_data, sort_keys=True, indent=2)
-        # print(self.json_text)
-        return self.json_data
+        
+        self.name = self.json_data["name"]
 
+        self.temp = self.json_data["main"]["temp"]
+        self.temp_min = self.json_data["main"]["temp_min"]
+        self.temp_max = self.json_data["main"]["temp_max"]
+
+        self.icon = self.json_data["weather"][0]["icon"]
+        self.iconUrl = "https://openweathermap.org/img/w/" + self.icon + ".png"
+        # self.mytest = "mytest"
+        # return self.json_data
 
 
 def index(request):
 
     template = loader.get_template('weather/hwi.html')
     hwi = WeatherWismar()
+    hwi.apiCall4hwi()
+
+    api_response = hwi.json_data
+
+    city = hwi.name
+
+    temp = hwi.temp
+    temp_min = hwi.temp_min
+    temp_max = hwi.temp_max
+
+    icon = hwi.icon
+    iconUrl = hwi.iconUrl
 
     context = {
-        'uri': hwi.uri,
-        'api_response': WeatherWismar().apiCall4hwi()
+        # 'uri': hwi.uri,
+        'city': city,
+        'temp': temp,
+        'temp_min': temp_min,
+        'temp_max': temp_max,
+        'icon': icon,
+        'iconUrl': iconUrl,
+        'api_response': api_response,
     }
 
     return HttpResponse(template.render(context, request))

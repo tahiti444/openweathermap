@@ -1,8 +1,24 @@
-{% if True %}
-    <ul>
-        <li>{{ uri }}</li>
-    </ul>
-    <p>{{ api_response }}</p>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>wheather</title>
+    </head>
+    <body>
+        {% load static %}
+        <img src="{% static 'weather/example.jpg' %}" alt="My image">
+        {% if api_response %}
+            <h1>Weather in {{ city }}</h1>
+            <ul>
+                <li>Actual Temperature: {{ temp }}</li>
+                <li>Minimal Temperature: {{ temp_min }}</li>
+                <li>Maximal Temperature: {{ temp_max }}</li>
+                {% comment %} <li>icon: {{ icon }}</li> {% endcomment %}
+                {% comment %} <li>icon: {{ iconUrl }} <img src={{ iconUrl }}</li> {% endcomment %}
+                {% comment %} <li>uri: {{ uri }}</li> {% endcomment %}
+                {% comment %} <li>api response: {{ api_response }}</li> {% endcomment %}
+            </ul>
+        {% endif %}
+    </body>
+</html>
+
