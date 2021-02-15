@@ -4,6 +4,7 @@ from django.template import loader
 
 import json
 import requests
+import time
 
 # Create your views here.
 
@@ -32,6 +33,8 @@ class WeatherWismar(object):
     def apiCall4hwi(self):
         self.json_data = requests.get(self.uri).json()
         self.json_text = json.dumps(self.json_data, sort_keys=True, indent=2)
+
+        self.date = time.asctime()
 
         self.name = self.json_data["name"]
 
