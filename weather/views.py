@@ -7,14 +7,15 @@ import requests
 
 # Create your views here.
 
+
 class WeatherWismar(object):
     def __init__(
         self,
-        https = "https://",
-        root = "api.openweathermap.org/data/2.5/weather?",
-        city = "q=Wismar",
-        path_credentials = "./keys/credentials.json"
-        ):
+        https="https://",
+        root="api.openweathermap.org/data/2.5/weather?",
+        city="q=Wismar",
+        path_credentials="./keys/credentials.json",
+    ):
 
         self.https = https
         self.root = root
@@ -31,7 +32,7 @@ class WeatherWismar(object):
     def apiCall4hwi(self):
         self.json_data = requests.get(self.uri).json()
         self.json_text = json.dumps(self.json_data, sort_keys=True, indent=2)
-        
+
         self.name = self.json_data["name"]
 
         self.temp = self.json_data["main"]["temp"]
@@ -46,7 +47,7 @@ class WeatherWismar(object):
 
 def index(request):
 
-    template = loader.get_template('weather/hwi.html')
+    template = loader.get_template("weather/hwi.html")
     hwi = WeatherWismar()
     hwi.apiCall4hwi()
 
@@ -63,15 +64,13 @@ def index(request):
 
     context = {
         # 'uri': hwi.uri,
-        'city': city,
-        'temp': temp,
-        'temp_min': temp_min,
-        'temp_max': temp_max,
-        'icon': icon,
-        'iconUrl': iconUrl,
-        'api_response': api_response,
+        "city": city,
+        "temp": temp,
+        "temp_min": temp_min,
+        "temp_max": temp_max,
+        "icon": icon,
+        "iconUrl": iconUrl,
+        "api_response": api_response,
     }
 
     return HttpResponse(template.render(context, request))
-
-
