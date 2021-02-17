@@ -7,4 +7,4 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", views.index, name="index"),
     # path('hwi/', views.today_hwi, name='today_hwi')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
